@@ -167,7 +167,6 @@ def update_userlists(c, config):
     c.Authenticator.blacklist = set(users['banned'])
     c.Authenticator.admin_users = set(users['admin'])
 
-
 def update_limits(c, config):
     """
     Set user server limits
@@ -183,6 +182,10 @@ def update_user_environment(c, config):
     Set user environment configuration
     """
     user_env = config['user_environment']
+    
+    # Set command to be 'jupyter-labhub' regardless of where we launch
+    # This is required to get hub command acess in lab
+    c.Spawner.cmd = ['jupyter-labhub']
 
     # Set default application users are launched into
     if user_env['default_app'] == 'jupyterlab':
